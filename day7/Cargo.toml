@@ -1,5 +1,5 @@
 [package]
-name = "advent-of-code-2020"
+name = "day7"
 version = "0.1.0"
 authors = ["cLazyZombie <rusad96@gmail.com>"]
 edition = "2018"
@@ -7,7 +7,3 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-regex = "1.4.2"
-
-[workspace]
-members = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"]
