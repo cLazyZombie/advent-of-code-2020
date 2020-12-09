@@ -62,6 +62,8 @@ fn continious_set(target: i64, numbers: &[i64]) -> i64 {
 
             if sum == target {
                 return smallest + largest;
+            } else if sum > target {
+                break;
             }
         }
     }
