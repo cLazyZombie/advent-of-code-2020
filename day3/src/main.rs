@@ -6,7 +6,7 @@ fn main() {
     let mut map = Vec::new();
     for line in input.lines() {
         let line = line.trim();
-        
+
         if line.len() > 0 {
             w = line.chars().count();
             h += 1_usize;

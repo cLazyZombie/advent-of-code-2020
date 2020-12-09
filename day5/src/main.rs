@@ -28,11 +28,11 @@ fn main() {
             continue;
         }
 
-        if seats.binary_search(&(seat-1)).is_err() {
+        if seats.binary_search(&(seat - 1)).is_err() {
             continue;
         }
 
-        if seats.binary_search(&(seat+1)).is_err() {
+        if seats.binary_search(&(seat + 1)).is_err() {
             continue;
         }
 
@@ -48,8 +48,7 @@ fn main() {
     }
 }
 
-
-fn get_seat_number(s : &str) -> i32 {
+fn get_seat_number(s: &str) -> i32 {
     let mut result = 0;
     for ch in s.chars() {
         result <<= 1;
