@@ -45,7 +45,6 @@ fn get_any_yes(answers: &[&str]) -> i32 {
 fn get_all_yes(answers: &[&str]) -> i32 {
     let mut answered_bit = 0xffffffff_u32;
     for &answer in answers {
-
         let mut cur_answer = 0_u32;
         for ch in answer.chars() {
             let index = ch as u32 - 'a' as u32;

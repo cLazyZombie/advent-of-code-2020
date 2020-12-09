@@ -12,7 +12,7 @@ enum Op {
     Jmp(i32),
 }
 
-fn solve(input: &str) -> (i32,i32) {
+fn solve(input: &str) -> (i32, i32) {
     let mut ops = Vec::new();
     for line in input.lines() {
         ops.push(parse_op(line));
@@ -83,7 +83,7 @@ fn parse_op(line: &str) -> Op {
 // result.0 : teminated normally (true) or stop before infinity loop(false)
 // result.1 : acc value
 fn run(ops: &Vec<Op>) -> (bool, i32) {
-    let mut executed = vec![false;ops.len()];
+    let mut executed = vec![false; ops.len()];
     let mut acc = 0;
 
     let mut pc = 0;
@@ -160,6 +160,3 @@ mod tests {
         assert_eq!(acc, 8);
     }
 }
-
-
-

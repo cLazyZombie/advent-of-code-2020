@@ -29,9 +29,9 @@ fn main() {
     //println!("color: {},  {:?}", color_table.len(), color_table);
 
     // create matrix
-    let mut color_matrix = vec![Vec::new();color_table.len()];
+    let mut color_matrix = vec![Vec::new(); color_table.len()];
     for m in &mut color_matrix {
-        *m = vec![0;color_table.len()];
+        *m = vec![0; color_table.len()];
     }
 
     for (color, sub_colors) in color_matrix_str {
@@ -46,12 +46,14 @@ fn main() {
 
     let color_matrix_composed = compose_matrix(&mut color_matrix);
 
-    // 
-    let shiny_gold_idx = color_table.binary_search(&"shiny gold".to_string()).unwrap();
+    //
+    let shiny_gold_idx = color_table
+        .binary_search(&"shiny gold".to_string())
+        .unwrap();
     let count = get_count_from_matrix(shiny_gold_idx, &color_matrix_composed);
     println!("part1: {}", count);
 
-    let mut memo = vec![None;color_matrix.len()];
+    let mut memo = vec![None; color_matrix.len()];
     let total_count = get_total_count(shiny_gold_idx, &color_matrix, &mut memo);
     println!("part2: {}", total_count);
 }
@@ -85,7 +87,7 @@ fn parse_sentence(sentence: &str) -> Option<(String, i32)> {
     match tokens[0] {
         "no" => {
             return None;
-        },
+        }
         t => {
             if let Ok(t) = t.parse::<i32>() {
                 count = t;
@@ -98,7 +100,7 @@ fn parse_sentence(sentence: &str) -> Option<(String, i32)> {
     // remove bag
 
     let mut color = String::new();
-    for &tok in &tokens[1..tokens.len()-1] {
+    for &tok in &tokens[1..tokens.len() - 1] {
         if color.is_empty() == false {
             color.push(' ');
         }
@@ -110,7 +112,7 @@ fn parse_sentence(sentence: &str) -> Option<(String, i32)> {
 }
 
 // 최적화 가능. DP 사용
-fn compose_matrix(m: &Vec<Vec<i32>>) -> Vec<Vec<bool>>{
+fn compose_matrix(m: &Vec<Vec<i32>>) -> Vec<Vec<bool>> {
     let mut composed = vec![Vec::new(); m.len()];
     for i in 0..m.len() {
         composed[i] = vec![false; m.len()];
@@ -119,7 +121,7 @@ fn compose_matrix(m: &Vec<Vec<i32>>) -> Vec<Vec<bool>>{
     for row in 0..m.len() {
         for column in 0..m.len() {
             if m[row][column] > 0 {
-                composed[row][column] = true;    
+                composed[row][column] = true;
             }
         }
     }
@@ -197,12 +199,12 @@ mod tests {
 
     #[test]
     fn test_parse_line() {
-        let (color, contains) = parse_line("light red bags contain 1 bright white bag, 2 muted yellow bags.");
+        let (color, contains) =
+            parse_line("light red bags contain 1 bright white bag, 2 muted yellow bags.");
         assert_eq!(color, "light red");
         assert_eq!(contains.len(), 2);
         assert_eq!(contains[0], ("bright white".to_string(), 1));
         assert_eq!(contains[1], ("muted yellow".to_string(), 2));
-
 
         let (color, contains) = parse_line("dotted coral bags contain 4 dotted chartreuse bags, 2 bright red bags, 1 vibrant white bag, 1 vibrant brown bag.");
         assert_eq!(color, "dotted coral");
@@ -219,8 +221,14 @@ mod tests {
 
     #[test]
     fn test_parse_sentence() {
-        assert_eq!(parse_sentence("1 bright white bag"), Some(("bright white".to_string(), 1)));
-        assert_eq!(parse_sentence(" 2 muted yellow bags."), Some(("muted yellow".to_string(), 2)));
+        assert_eq!(
+            parse_sentence("1 bright white bag"),
+            Some(("bright white".to_string(), 1))
+        );
+        assert_eq!(
+            parse_sentence(" 2 muted yellow bags."),
+            Some(("muted yellow".to_string(), 2))
+        );
     }
 
     #[test]
@@ -233,17 +241,13 @@ mod tests {
         ];
 
         // 0번째 -> 4번째 1개 -> 3번째 2개 -> 2번째 3개 = 1 + 2 * (1 + 3) = 9개
-        let mut memo = vec![None;m.len()];
+        let mut memo = vec![None; m.len()];
         assert_eq!(get_total_count(0, &m, &mut memo), 9);
     }
 
     #[test]
     fn test_compose_matrix() {
-        let mut m = vec![
-            vec![1, 0, 3],
-            vec![2, 1, 0],
-            vec![0, 0, 1],
-        ];
+        let mut m = vec![vec![1, 0, 3], vec![2, 1, 0], vec![0, 0, 1]];
 
         let composed = compose_matrix(&mut m);
 
@@ -272,8 +276,7 @@ mod tests {
             vec![false, true, true, true],
         ];
 
-        assert_eq!(composed, expected); 
-
+        assert_eq!(composed, expected);
 
         let mut m = vec![
             vec![1, 0, 0, 1],
@@ -291,6 +294,6 @@ mod tests {
             vec![true, true, true, true],
         ];
 
-        assert_eq!(composed, expected); 
+        assert_eq!(composed, expected);
     }
 }
